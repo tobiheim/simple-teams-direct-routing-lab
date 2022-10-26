@@ -1,0 +1,14 @@
+templates/
+.DS_Store
+.terraform/
+*.tfstate
+*.tfstate.backup
+*.tfvars
+.terraformrc
+crash.log
+*.tfplan
+*.tfplan.backup
+*.tfstate.backup
+*.hcl
+*.tfvars
+*.info
