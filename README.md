@@ -26,7 +26,7 @@ The official Microsoft documentation about the Microsoft Teams Direct Routing ca
       - [5. Upload the INI file to the SBC](#5-upload-the-ini-file-to-the-sbc)
       - [6. Upload your Public Certificate to the SBC](#6-upload-your-public-certificate-to-the-sbc)
       - [7. Verify & update the Network Security Group of the SBC in Azure](#7-verify--update-the-network-security-group-of-the-sbc-in-azure)
-      - [8. Create DNS-Records for SBC](#8-create-dns-records-for-sbc)
+      - [8. Create SBC DNS-Record](#8-create-sbc-dns-record)
       - [9. Configure the Admin-Host](#9-configure-the-admin-host)
       - [10. 📞 Configure the generic SIP-Client](#10--configure-the-generic-sip-client)
       - [11. Configure Microsoft Teams Direct Routing](#11-configure-microsoft-teams-direct-routing)
@@ -231,7 +231,7 @@ Ensure that the Firewall Rules (inbound and outbound) are configure as shown in 
 It might be that you have NSG rules applied that are preventing the automated creation of the required rules.
 In this case you have to create the rules manually.
 
-#### 8. Create DNS-Records for SBC
+#### 8. Create SBC DNS-Record
 
 👨🏽‍💻 Now create the DNS-Record for your SBC with the Public IP Address provided by the script at your DNS Provider.
 Make sure the record can be resolved:

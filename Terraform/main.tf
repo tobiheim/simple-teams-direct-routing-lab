@@ -213,7 +213,7 @@ resource "azurerm_network_security_rule" "res-13" {
 resource "azurerm_network_security_rule" "res-14" {
   access                      = "Allow"
   destination_address_prefix  = "*"
-  destination_port_range      = "6000 - 6399"
+  destination_port_range      = "6000-6399"
   direction                   = "Inbound"
   name                        = "media"
   network_security_group_name = "sbc-nsg"
