@@ -73,7 +73,7 @@ The solution requires an Office 365 and Azure subscription including the followi
 Clone the repo:
 
 ```sh
-git clone https://github.com/tobiheim/mw-core-lab-phone.git
+git clone https://github.com/tobiheim/simple-teams-direct-routing-lab.git
 ```
 
 #### 2. Get Tenant & subscription id
