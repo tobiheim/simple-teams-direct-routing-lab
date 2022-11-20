@@ -20,17 +20,18 @@ The official Microsoft documentation about the Microsoft Teams Direct Routing ca
     - [Prerequisites](#prerequisites)
     - [Deployment](#deployment)
       - [1. Clone the repo or download the files directly](#1-clone-the-repo-or-download-the-files-directly)
-      - [2. Get Tenant & subscription id](#2-get-tenant--subscription-id)
+      - [2. Get Tenant \& subscription id](#2-get-tenant--subscription-id)
       - [3. Create the Terraform variables file (terraform.tfvars)](#3-create-the-terraform-variables-file-terraformtfvars)
       - [4. Run the deployment script](#4-run-the-deployment-script)
       - [5. Upload the INI file to the SBC](#5-upload-the-ini-file-to-the-sbc)
-      - [6. Upload your Public Certificate to the SBC](#6-upload-your-public-certificate-to-the-sbc)
-      - [7. Verify & update the Network Security Group of the SBC in Azure](#7-verify--update-the-network-security-group-of-the-sbc-in-azure)
-      - [8. Create SBC DNS-Record](#8-create-sbc-dns-record)
-      - [9. Configure the Admin-Host](#9-configure-the-admin-host)
-      - [10. 📞 Configure the generic SIP-Client](#10--configure-the-generic-sip-client)
-      - [11. Configure Microsoft Teams Direct Routing](#11-configure-microsoft-teams-direct-routing)
-      - [12. Start Testing](#12-start-testing)
+      - [6. Request Public Certificate for the SBC](#6-request-public-certificate-for-the-sbc)
+      - [7. Upload your Public Certificate to the SBC](#7-upload-your-public-certificate-to-the-sbc)
+      - [8. Verify \& update the Network Security Group of the SBC in Azure](#8-verify--update-the-network-security-group-of-the-sbc-in-azure)
+      - [9. Create SBC DNS-Record](#9-create-sbc-dns-record)
+      - [10. Configure the Admin-Host](#10-configure-the-admin-host)
+      - [11. 📞 Configure the generic SIP-Client](#11--configure-the-generic-sip-client)
+      - [12. Configure Microsoft Teams Direct Routing](#12-configure-microsoft-teams-direct-routing)
+      - [13. Start Testing](#13-start-testing)
   - [Usage](#usage)
   - [🔭 Roadmap](#-roadmap)
   - [Contributing](#contributing)
@@ -195,11 +196,29 @@ After the incremental configuration file was uploaded successfully, you need to 
 
 The SBC will now restart. This may take some time. 🕔
 
-#### 6. Upload your Public Certificate to the SBC
+#### 6. Request Public Certificate for the SBC
+
+To establish a secure Connection (TLS) between Microsoft Teams and the SBC, you need to request a certificate for the SBC.  
+There are multiple ways how you can request the cert. The following sample are some of them:
+- Directly on the SBC (SBC certificate wizard)
+- [DigiCert Certificate Utility for Windows](https://www.digicert.com/support/tools/certificate-utility-for-windows)
+- MMC on Windows (Microsoft Management Console)
+
+Make sure to follow the requirements on how a SBC certificate must look like for Microsoft Teams Direct Routing:
+[Public trusted certificate for the SBC](https://learn.microsoft.com/en-us/microsoftteams/direct-routing-plan#public-trusted-certificate-for-the-sbc)
+
+One possible example of a certificate could look like this:
+
+|Certificate Field  |Value  |
+|---------|---------|
+|CN (Common Name)     |sbc01.contoso.com      |
+|SAN (Subject Alternative Names)    |sbc01.contoso.com         |
+
+After you requested the Certificate you should have a file with the extension ***.pfx**. This means you have certificate including private key.
+
+#### 7. Upload your Public Certificate to the SBC
 
 After the successfully restarted, you can upload to certificate to the device.
-Make sure that the certificate is supported by Microsoft Teams. You can learn more here:
-[Public trusted certificate for the SBC](https://learn.microsoft.com/en-us/microsoftteams/direct-routing-plan#public-trusted-certificate-for-the-sbc)
 
 Go to **IP NETWORK**
 
@@ -222,7 +241,7 @@ Don't forget to save (in the top blue bar) to permanently store your configurati
 That's all on the SBC! 👏  
 *(At least the required steps)*
 
-#### 7. Verify & update the Network Security Group of the SBC in Azure
+#### 8. Verify & update the Network Security Group of the SBC in Azure
 
 Ensure that the Firewall Rules (inbound and outbound) are configure as shown in the following screenshot below:
 
@@ -231,7 +250,7 @@ Ensure that the Firewall Rules (inbound and outbound) are configure as shown in 
 It might be that you have NSG rules applied that are preventing the automated creation of the required rules.
 In this case you have to create the rules manually.
 
-#### 8. Create SBC DNS-Record
+#### 9. Create SBC DNS-Record
 
 👨🏽‍💻 Now create the DNS-Record for your SBC with the Public IP Address provided by the script at your DNS Provider.
 Make sure the record can be resolved:
@@ -246,7 +265,7 @@ Now you can verify the access to the SBC via HTTPS using the FQDN of the SBC in 
 
 ![NSG Rules](https://www.tnext-labs.com/GitHub/voice-lab/NSG_SBC_80_1.png)
 
-#### 9. Configure the Admin-Host
+#### 10. Configure the Admin-Host
 
 Now let's connect to the Admin-Host to configure Syslog to allow you to troubleshoot and understand the SIP-Stack Routing between Microsoft Teams and the SBC.
 
@@ -272,7 +291,7 @@ After a successful run you should see the following output:
 
 After the script finished you will notice that the Syslog Viewer is already receiving SIP messages from the SBC.
 
-#### 10. 📞 Configure the generic SIP-Client
+#### 11. 📞 Configure the generic SIP-Client
 
 The SBC is configured to act also as registrar to allow generic SIP-Clients to register against it to simulate a PBX/ PSTN user the Microsoft Teams Direct Routing scenario.
 
@@ -288,7 +307,7 @@ You can use numbers from the following fictional number plan:
 
 **Note:** The SBC doesn't require Authentication to simplify the process.
 
-#### 11. Configure Microsoft Teams Direct Routing
+#### 12. Configure Microsoft Teams Direct Routing
 
 To configure Direct Routing, follow the steps in the official Microsoft documentation:  
  📚 [Configure Direct Routing](https://learn.microsoft.com/en-us/MicrosoftTeams/direct-routing-configure)
@@ -303,7 +322,7 @@ You can use numbers from the following fictional number plan:
 
  **Note:** Make sure to configure a valid E.164 number for your demo users.
 
-#### 12. Start Testing
+#### 13. Start Testing
 
 If you configured everything correctly, you should be able to call the SIP-Client from a Teams users and the other way around. 
 
