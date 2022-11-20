@@ -198,9 +198,8 @@ The SBC will now restart. This may take some time. 🕔
 
 #### 6. Request Public Certificate for the SBC
 
-To establish a secure Connection (TLS) between Microsoft Teams and the SBC, you need to request a certificate for the SBC.  
-There are multiple ways how you can request the cert. The following sample are some of them:
-- Directly on the SBC (SBC certificate wizard)
+To establish a secure connection (TLS) between Microsoft Teams and the SBC, you need to request a certificate for the SBC. There are multiple ways how you can request the cert. The following samples are some of them:
+- Directly on the SBC (SBC Certificate Wizard)
 - [DigiCert Certificate Utility for Windows](https://www.digicert.com/support/tools/certificate-utility-for-windows)
 - MMC on Windows (Microsoft Management Console)
 
@@ -214,7 +213,7 @@ One possible example of a certificate could look like this:
 |CN (Common Name)     |sbc01.contoso.com      |
 |SAN (Subject Alternative Names)    |sbc01.contoso.com         |
 
-After you requested the Certificate you should have a file with the extension ***.pfx**. This means you have certificate including private key.
+After you requested the certificate you should have a file with the extension ***.pfx**. This means you have certificate including private key.
 
 #### 7. Upload your Public Certificate to the SBC
 
